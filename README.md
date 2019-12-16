@@ -78,6 +78,8 @@ ansible-playbook main.yml
 vagrant box add --provider libvirt --name cisco-iosv-157-3.M3 ./cisco-iosv.box
 ```
 
+![demo screenshot](https://res.cloudinary.com/binarynature/image/upload/v1576528555/cisco-iosv-vagrant-libvirt_vj6ewc.png)
+
 ## Debug
 
 To view the telnet session output for the `expect` task:
