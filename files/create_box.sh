@@ -119,6 +119,7 @@ Vagrant.configure("2") do |config|
     domain.memory = 512
     domain.volume_cache = "unsafe"
     domain.nic_model_type = "e1000"
+    domain.graphics_type = "none"
   end
 end
 EOF
