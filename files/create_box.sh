@@ -116,6 +116,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :libvirt do |domain|
     domain.cpus = 1
+    domain.features = ['apic']
     domain.memory = 512
     domain.volume_cache = "unsafe"
     domain.nic_model_type = "e1000"
