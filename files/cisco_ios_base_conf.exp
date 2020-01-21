@@ -61,11 +61,16 @@ expect -re $prompt {
 
 # configure the management interface
 expect -re $prompt {
-    send "int g0/0\r"
-    send "shut\r"
-    send "ip addr dhcp\r"
+    send "vrf definition Mgmt-intf\r"
+    send "address-family ipv4\r"
+    send "exit-address-family\r"
+    send "exit\r"
+    send "interface GigabitEthernet0/0\r"
+    send "shutdown\r"
+    send "vrf forwarding Mgmt-intf\r"
+    send "ip address dhcp\r"
     send "no cdp enable\r"
-    send "no shut\r"
+    send "no shutdown\r"
     send "exit\r"
 }
 
@@ -73,6 +78,7 @@ expect -re $prompt {
 expect -re $prompt {
     send "ip domain-name example.com\r"
     send "ip ssh version 2\r"
+    send "ip ssh source-interface GigabitEthernet0/0\r"
     send "ip ssh rsa keypair-name VAGRANT\r"
     send "crypto key generate rsa usage-keys label VAGRANT modulus 1024\r"
     send "ip scp server enable\r"
@@ -111,4 +117,3 @@ expect -re $prompt
 
 # allow time for save to happen
 sleep 5
-
