@@ -1,3 +1,5 @@
+# Cisco IOSv Vagrant box (libvirt)
+
 A procedure for creating a Cisco IOSv Vagrant box for the [libvirt](https://libvirt.org) provider.
 
 ## Prerequisites
@@ -5,7 +7,7 @@ A procedure for creating a Cisco IOSv Vagrant box for the [libvirt](https://libv
   * [Cisco VIRL](http://virl.cisco.com) account
   * [Git](https://git-scm.com)
   * [Python](https://www.python.org)
-  * [Ansible](https://docs.ansible.com/ansible/latest/index.html)
+  * [Ansible](https://docs.ansible.com/ansible/latest/index.html) >= 2.7
   * [libvirt](https://libvirt.org) with client tools
   * [QEMU](https://www.qemu.org)
   * [Expect](https://en.wikipedia.org/wiki/Expect)
@@ -15,78 +17,82 @@ A procedure for creating a Cisco IOSv Vagrant box for the [libvirt](https://libv
 
 ## Steps
 
-0. Verify the prerequisite tools are installed.
+0\. Verify the prerequisite tools are installed.
 
-```
-which git python ansible libvirtd virsh qemu-system-x86_64 expect telnet vagrant
-vagrant plugin list
-```
+<pre>
+$ <b>which git python ansible libvirtd virsh qemu-system-x86_64 expect telnet vagrant</b>
+</pre>
 
-1. Clone this GitHub repo and _cd_ into the directory.
+<pre>
+$ <b>vagrant plugin list</b>
+vagrant-libvirt (0.1.2, global)
+</pre>
 
-```
-git clone https://github.com/mweisel/cisco-iosv-vagrant-libvirt
-cd cisco-iosv-vagrant-libvirt
-```
+1\. Clone this GitHub repo and _cd_ into the directory.
 
-2. Log in and download the IOSv disk image file from your [Cisco VIRL](http://virl.cisco.com) account.
+<pre>
+$ <b>git clone https://github.com/mweisel/cisco-iosv-vagrant-libvirt</b>
+$ <b>cd cisco-iosv-vagrant-libvirt</b>
+</pre>
 
-3. Convert the IOSv disk image file from `vmdk` to `qcow2`.
+2\. Log in and download the IOSv disk image file from your [Cisco VIRL](http://virl.cisco.com) account.
 
-```
-qemu-img convert -pO qcow2 $HOME/Downloads/vios-adventerprisek9-m.vmdk.SPA.157-3.M3 $HOME/Downloads/cisco-iosv.qcow2
-qemu-img check $HOME/Downloads/cisco-iosv.qcow2
-qemu-img info $HOME/Downloads/cisco-iosv.qcow2
-```
+3\. Convert the IOSv disk image file from `vmdk` to `qcow2`.
 
-4. Copy the converted IOSv disk image file to the `/var/lib/libvirt/images` directory.
+<pre>
+$ <b>qemu-img convert -pO qcow2 $HOME/Downloads/vios-adventerprisek9-m.vmdk.SPA.157-3.M3 $HOME/Downloads/cisco-iosv.qcow2</b>
+$ <b>qemu-img check $HOME/Downloads/cisco-iosv.qcow2</b>
+$ <b>qemu-img info $HOME/Downloads/cisco-iosv.qcow2</b>
+</pre>
 
-```
-sudo cp $HOME/Downloads/cisco-iosv.qcow2 /var/lib/libvirt/images
-```
+4\. Copy the converted IOSv disk image file to the `/var/lib/libvirt/images` directory.
 
-5. Modify the file ownership and permissions. Note the owner will differ between Linux distributions. A couple of examples:
+<pre>
+$ <b>sudo cp $HOME/Downloads/cisco-iosv.qcow2 /var/lib/libvirt/images</b>
+</pre>
+
+5\. Modify the file ownership and permissions. Note the owner may differ between Linux distributions.
 
 > Arch Linux
-```
-sudo chown nobody:kvm /var/lib/libvirt/images/cisco-iosv.qcow2
-sudo chmod u+x /var/lib/libvirt/images/cisco-iosv.qcow2
-```
+
+<pre>
+$ <b>sudo chown nobody:kvm /var/lib/libvirt/images/cisco-iosv.qcow2</b>
+$ <b>sudo chmod u+x /var/lib/libvirt/images/cisco-iosv.qcow2</b>
+</pre>
 
 > Ubuntu 18.04
-```
-sudo chown libvirt-qemu:kvm /var/lib/libvirt/images/cisco-iosv.qcow2
-sudo chmod u+x /var/lib/libvirt/images/cisco-iosv.qcow2
-```
 
-6. Start the `vagrant-libvirt` network (if not already started).
+<pre>
+$ <b>sudo chown libvirt-qemu:kvm /var/lib/libvirt/images/cisco-iosv.qcow2</b>
+$ <b>sudo chmod u+x /var/lib/libvirt/images/cisco-iosv.qcow2</b>
+</pre>
 
-```
-virsh -c qemu:///system net-list
-virsh -c qemu:///system net-start vagrant-libvirt
-```
+6\. Start the `vagrant-libvirt` network (if not already started).
 
-7. Run the Ansible playbook. 
+<pre>
+$ <b>virsh -c qemu:///system net-list</b>
+$ <b>virsh -c qemu:///system net-start vagrant-libvirt</b>
+</pre>
 
-```
-ansible-playbook main.yml
-```
+7\. Run the Ansible playbook.
 
-8. Add the Vagrant box. 
+<pre>
+$ <b>ansible-playbook main.yml</b>
+</pre>
 
-```
-vagrant box add --provider libvirt --name cisco-iosv-157-3.M3 ./cisco-iosv.box
-```
+8\. Add the Vagrant box to the local inventory.
 
-![demo screenshot](https://res.cloudinary.com/binarynature/image/upload/v1576528555/cisco-iosv-vagrant-libvirt_vj6ewc.png)
+<pre>
+$ <b>vagrant box add --provider libvirt --name cisco-iosv-157-3.M3 ./cisco-iosv.box</b>
+</pre>
 
 ## Debug
 
-To view the telnet session output for the `expect` task:
+View the telnet session output for the `expect` task:
 
-```
-tail -f ~/iosv-console.explog
-```
+<pre>
+$ <b>tail -f ~/iosv-console.explog</b>
+</pre>
 
 ## License
 
