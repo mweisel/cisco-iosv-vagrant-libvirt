@@ -12,7 +12,7 @@ A procedure for creating a Cisco IOSv Vagrant box for the [libvirt](https://libv
   * [QEMU](https://www.qemu.org)
   * [Expect](https://en.wikipedia.org/wiki/Expect)
   * [Telnet](https://en.wikipedia.org/wiki/Telnet)
-  * [Vagrant](https://www.vagrantup.com)
+  * [Vagrant](https://www.vagrantup.com) <= 2.2.9
   * [vagrant-libvirt](https://github.com/vagrant-libvirt/vagrant-libvirt)
 
 ## Steps
