@@ -1,0 +1,15 @@
+{
+  "name": "cisco-iosv",
+  "description": "This box contains the Cisco IOSv Router.",
+  "versions": [
+    {
+      "version": "15.8",
+      "providers": [
+        {
+          "name": "libvirt",
+          "url": "file://HOME/boxes/cisco-iosv-158.box"
+        }
+      ]
+    }
+  ]
+}
