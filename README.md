@@ -112,7 +112,7 @@ $ <b>cp ./files/cisco-iosv.json $HOME/boxes/</b>
 $ <b>cd $HOME/boxes</b>
 </pre>
 
-14\. Replace the `HOME` placeholder string in the box metadata file.
+14\. Substitute the `HOME` placeholder string in the box metadata file.
 
 <pre>
 $ <b>awk '/url/{gsub(/^ */,"");print}' cisco-iosv.json</b>
