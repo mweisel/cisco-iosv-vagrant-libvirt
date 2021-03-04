@@ -1,4 +1,6 @@
-# Cisco IOSv Vagrant box (libvirt)
+<img alt="Vagrant" src="https://img.shields.io/badge/vagrant%20-%231563FF.svg?&style=for-the-badge&logo=vagrant&logoColor=white"/>
+
+# Cisco IOSv Vagrant box
 
 A procedure for creating a Cisco IOSv Vagrant box for the [libvirt](https://libvirt.org) provider.
 
@@ -22,7 +24,7 @@ A procedure for creating a Cisco IOSv Vagrant box for the [libvirt](https://libv
 <pre>
 $ <b>which git python ansible libvirtd virsh qemu-system-x86_64 expect telnet vagrant</b>
 $ <b>vagrant plugin list</b>
-vagrant-libvirt (0.2.1, global)
+vagrant-libvirt (0.3.0, global)
 </pre>
 
 1\. Log in and download the CML-P reference platform ISO file to your `Downloads` directory.
@@ -30,20 +32,20 @@ vagrant-libvirt (0.2.1, global)
 2\. Create a mount point directory.
 
 <pre>
-$ <b>sudo mkdir /mnt/iso</b>
+$ <b>sudo mkdir -p /mnt/iso</b>
 </pre>
 
 3\. Mount the ISO file.
 
 <pre>
 $ <b>cd $HOME/Downloads</b>
-$ <b>sudo mount -o loop refplat-20200409-fcs.iso /mnt/iso</b>
+$ <b>sudo mount -o loop refplat-20201110-fcs.iso /mnt/iso</b>
 </pre>
 
 4\. Copy (and rename) the Cisco IOSv disk image file to the `/var/lib/libvirt/images` directory.
 
 <pre>
-$ <b>sudo cp /mnt/iso/virl-base-images/iosv-158-3/vios-adventerprisek9-m.spa.158-3.m2.qcow2 /var/lib/libvirt/images/cisco-iosv.qcow2</b>
+$ <b>sudo cp /mnt/iso/virl-base-images/iosv-159-3/vios-adventerprisek9-m.spa.159-3.m2.qcow2 /var/lib/libvirt/images/cisco-iosv.qcow2</b>
 </pre>
 
 5\. Unmount the ISO file.
@@ -71,7 +73,7 @@ $ <b>sudo chmod u+x /var/lib/libvirt/images/cisco-iosv.qcow2</b>
 7\. Create the `boxes` directory.
 
 <pre>
-$ <b>mkdir $HOME/boxes</b>
+$ <b>mkdir -p $HOME/boxes</b>
 </pre>
 
 8\. Start the `vagrant-libvirt` network (if not already started).
@@ -97,7 +99,7 @@ $ <b>ansible-playbook main.yml</b>
 11\. Copy (and rename) the Vagrant box artifact to the `boxes` directory.
 
 <pre>
-$ <b>cp cisco-iosv.box $HOME/boxes/cisco-iosv-158.box</b>
+$ <b>cp cisco-iosv.box $HOME/boxes/cisco-iosv-159.box</b>
 </pre>
 
 12\. Copy the box metadata file to the `boxes` directory.
@@ -116,12 +118,12 @@ $ <b>cd $HOME/boxes</b>
 
 <pre>
 $ <b>awk '/url/{gsub(/^ */,"");print}' cisco-iosv.json</b>
-"url": "file://<b>HOME</b>/boxes/cisco-iosv-158.box"
+"url": "file://<b>HOME</b>/boxes/cisco-iosv-159.box"
 
 $ <b>sed -i "s|HOME|${HOME}|" cisco-iosv.json</b>
 
 $ <b>awk '/url/{gsub(/^ */,"");print}' cisco-iosv.json</b>
-"url": "file://<b>/home/marc</b>/boxes/cisco-iosv-158.box"
+"url": "file://<b>/home/marc</b>/boxes/cisco-iosv-159.box"
 </pre>
 
 15\. Add the Vagrant box to the local inventory.
