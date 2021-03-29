@@ -27,8 +27,8 @@ send "username vagrant privilege 15 secret vagrant\r"
 # enable aaa and define aaa method lists
 expect -re $prompt {
     send "aaa new-model\r"
-    send "aaa authentication login VTYS local\r"
-    send "aaa authorization exec VTYS local\r"
+    send "aaa authentication login default local\r"
+    send "aaa authorization exec default local\r"
 }
 
 # disable dns lookups
@@ -53,8 +53,6 @@ expect -re $prompt {
     send "no exec-banner\r"
     send "exec-timeout 0 0\r"
     send "logging synchronous\r"
-    send "login authentication VTYS\r"
-    send "authorization exec VTYS\r"
     send "transport input ssh\r"
     send "exit\r"
 }

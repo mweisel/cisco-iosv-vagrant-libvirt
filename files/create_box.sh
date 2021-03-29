@@ -120,9 +120,9 @@ Vagrant.configure("2") do |config|
     domain.cpus = 1
     domain.features = ['apic']
     domain.memory = 512
-    domain.volume_cache = "unsafe"
-    domain.nic_model_type = "e1000"
-    domain.graphics_type = "none"
+    domain.disk_driver :cache => 'none'
+    domain.nic_model_type = 'e1000'
+    domain.graphics_type = 'none'
   end
 end
 EOF

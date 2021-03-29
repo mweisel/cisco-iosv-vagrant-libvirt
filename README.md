@@ -24,7 +24,7 @@ A procedure for creating a Cisco IOSv Vagrant box for the [libvirt](https://libv
 <pre>
 $ <b>which git python ansible libvirtd virsh qemu-system-x86_64 expect telnet vagrant</b>
 $ <b>vagrant plugin list</b>
-vagrant-libvirt (0.3.0, global)
+vagrant-libvirt (0.4.0, global)
 </pre>
 
 1\. Log in and download the CML-P reference platform ISO file to your `Downloads` directory.
