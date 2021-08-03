@@ -38,6 +38,14 @@ expect -re $prompt
 # enable cisco ios.sh
 send "shell processing full\r"
 
+# enable archive (scrapli, napalm)
+expect -re $prompt {
+    send "archive\r"
+    send "path flash:archive\r"
+    send "write-memory\r"
+    send "exit\r"
+}
+
 # configure the primary terminal line
 expect -re $prompt {
     send "line console 0\r"
@@ -68,6 +76,8 @@ expect -re $prompt {
     send "vrf forwarding Mgmt-intf\r"
     send "ip address dhcp\r"
     send "no cdp enable\r"
+    send "no lldp transmit\r"
+    send "no lldp receive\r"
     send "no shutdown\r"
     send "exit\r"
 }
