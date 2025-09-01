@@ -21,7 +21,7 @@ expect -re $prompt
 send "configure terminal\r"
 expect -re $prompt
 
-# create the vagrant user 
+# create the vagrant user
 send "username vagrant privilege 15 secret vagrant\r"
 
 # enable aaa and define aaa method lists

@@ -6,9 +6,6 @@
     <type arch='x86_64' machine='pc'>hvm</type>
     <boot dev='hd'/>
   </os>
-  <features>
-    <apic/>
-  </features>
   <cpu mode='host-model' check='partial'>
     <model fallback='allow'/>
   </cpu>
@@ -33,7 +30,7 @@
     </disk>
     <controller type='pci' index='0' model='pci-root'/>
     <interface type='network'>
-      <source network='vagrant-libvirt'/>
+      <source network='default'/>
       <model type='e1000'/>
     </interface>
     <serial type='tcp'>
@@ -52,4 +49,3 @@
     <input type='keyboard' bus='ps2'/>
   </devices>
 </domain>
-

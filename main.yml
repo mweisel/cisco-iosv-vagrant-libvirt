@@ -1,10 +1,11 @@
+---
 - name: create cisco iosv vagrant box
   hosts: localhost
-  gather_facts: no
+  gather_facts: false
 
   vars:
-    - disk_image_name: cisco-iosv.qcow2
-    - domain_name: cisco-iosv
+    domain_name: cisco-iosv
+    disk_image_name: cisco-iosv.qcow2
 
   tasks:
     - name: "verify the {{ disk_image_name }} file is available"
@@ -13,14 +14,14 @@
       register: stat_result
       failed_when: not stat_result.stat.exists
 
-    - name: verify the vagrant-libvirt network is active
+    - name: verify the default network is active
       command: virsh -c qemu:///system net-list --name
       register: vnet_result
-      changed_when: no
-      failed_when: not vnet_result.stdout is search('vagrant-libvirt')
+      changed_when: false
+      failed_when: not vnet_result.stdout is search('default')
 
     - name: define the domain
-      command: virsh -c qemu:///system define ./templates/{{ domain_name }}.xml
+      command: virsh -c qemu:///system define ./files/{{ domain_name }}.xml
       register: define_result
       failed_when: define_result.rc != 0
 
@@ -50,9 +51,8 @@
         dest: "files/{{ disk_image_name }}"
         remote_src: yes
 
-    # https://github.com/vagrant-libvirt/vagrant-libvirt/blob/master/tools/create_box.sh
+    # https://github.com/vagrant-libvirt/vagrant-libvirt/blob/main/tools/create_box.sh
     - name: create the vagrant box artifact
       script: create_box.sh ./files/{{ disk_image_name }}
       args:
         executable: bash
-
